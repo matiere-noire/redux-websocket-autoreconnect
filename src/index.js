@@ -1,5 +1,5 @@
 const middleware = store => next => action => {
-  console.log(action.type);
+  console.log('redux-websocket', action.type);
   return next(action);
 };
 
