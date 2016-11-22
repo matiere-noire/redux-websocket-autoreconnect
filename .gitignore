@@ -3,3 +3,8 @@ coverage
 *.log
 lib
 dist
+# IntelliJ
+*.iml
+.idea
+# Apple
+.DS_Store
