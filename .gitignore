@@ -8,3 +8,4 @@ dist
 .idea
 # Apple
 .DS_Store
+yarn.lock
