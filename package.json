@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha",
+    "test": "mocha --compilers js:babel-core/register",
     "build": "rm -rf dist/ && ./node_modules/.bin/babel -d dist/ src/"
   },
   "repository": {
