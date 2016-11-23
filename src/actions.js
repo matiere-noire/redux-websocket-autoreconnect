@@ -1,24 +1,24 @@
 /* eslint-env browser */
 
-import Types from './Types';
-
-export const connect = (url = 'ws://localhost:8010') => ({
-  type: Types.CONNECT,
-  WebSocket,
-  url
-});
+import Types from './types';
 
 // These actions are more concerned with connection state
 // and are trigged async by the WebSocketMiddleware
 
 export const connecting = () => ({
-  type: Types.CONNECTING,
+  type: Types.WEBSOCKET_CONNECTING,
   timestamp: new Date()
 });
 
 export const connected = () => ({
-  type: Types.CONNECTED,
+  type: Types.WEBSOCKET_CONNECTED,
   timestamp: new Date()
 });
+
+export const disconnected = () => ({
+  type: Types.WEBSOCKET_DISCONNECTED,
+  timestamp: new Date()
+});
+
 
 export default {};
