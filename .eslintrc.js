@@ -1,7 +1,10 @@
 const path = require('path');
 
 module.exports = {
-  extends: 'airbnb',
+  extends: [
+    "plugin:flowtype/recommended",
+    'airbnb',
+  ],
   globals: {},
   parser: 'babel-eslint',
   parserOptions: {
@@ -14,7 +17,7 @@ module.exports = {
   },
   plugins: [
     'react',
-    'flowtype',
+    'flowtype'
   ],
   settings: {
     'import/resolver': {

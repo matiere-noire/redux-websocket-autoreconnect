@@ -1,93 +1,73 @@
 /* eslint-env browser */
-
+/* @flow */
 import Types from './types';
-import { connecting, connected, disconnected } from './actions';
+import { connecting, open, closed, message } from './actions';
+import { createWebsocket } from './websocket';
 
-
-function ConfigException(message) {
-  this.message = message;
-  this.name = 'ConfigException';
-}
-
-// This wrapper function is used to provide this middleware with a closure to store variables.
 const createMiddleware = () => {
-  // This assumes a single WebSocket connection.
-  // If we require multiple socket connections, this can be an Object (map) instead.
-  let websocket;
+  // Hold a reference to the WebSocket instance in use.
+  let websocket: ?WebSocket;
 
+  const onOpen = store => (event: Event) => store.dispatch(open(event));
+  const onClose = store => (event: Event) => store.dispatch(closed(event));
+  const onMessage = store => (event: MessageEvent) => store.dispatch(message(event));
+  const onConnecting = store => (event: Event) => store.dispatch(connecting(event, websocket));
 
-  const onOpen = (store) => event => {
-    console.log(event);
-    // Send a handshake, or authenticate with remote end
-    // Tell the store we're connected
-    store.dispatch(connected());
+  /**
+   * A function to create the WebSocket object and attach the standard callbacks
+   */
+  const initialize = (store, config: Config) => {
+    websocket = createWebsocket(config);
+
+    websocket.onopen = onOpen(store);
+    websocket.onclose = onClose(store);
+    websocket.onmessage = onMessage(store);
+    // An optimistic callback assignment for WebSocket objects that support this
+    websocket.onconnecting = onConnecting(store);
   };
 
-  const onClose = store => {
-    store.dispatch(disconnected());
-  };
-
-  const onMessage = store => {
-    console.log(store);
-  };
-
-  // Close the connection, first by checking if we have a websocket object
-  const websocketClose = () => {
-    if (websocket != null) {
-      console.warn(`Closing WebSocket connection to ${websocket.url}.`);
+  /**
+   * Close the WebSocket connection and cleanup
+   */
+  const close = () => {
+    if (websocket) {
+      console.warn(`Closing WebSocket connection to ${websocket.url} ...`);
       websocket.close();
       websocket = null;
     }
   };
 
-  const configure = (store, config) => {
-    const WebsocketClass = config.websocket || WebSocket;
-    const url = config.url;
-    if (!url) {
-      throw new ConfigException('A websocket URL is required.');
-    }
-
-    websocket = new WebsocketClass(url);
-    websocket.onopen = onOpen(store);
-    websocket.onclose = onClose(store);
-    websocket.onmessage = onMessage(store);
-  };
-
-
   /**
-   * The primary Redux middleware function
+   * The primary Redux middleware function.
+   * Each of the actions handled are user-dispatched.
    */
-  return store => next => (action) => {
-    console.log(action);
-
+  return (store: Object) => (next: Function) => (action: Action) => {
     switch (action.type) {
+      // User request to connect
       case Types.WEBSOCKET_CONNECT:
-        // Start a new connection to the server
-        websocketClose();
-        configure(store, action.payload);
-        // Send an action that shows a "connecting..." status for now
-        store.dispatch(connecting());
+        close();
+        initialize(store, action.payload);
         break;
 
-      // The user wants us to disconnect
+      // User request to disconnect
       case Types.WEBSOCKET_DISCONNECT:
-        websocketClose();
+        close();
         break;
 
+      // User request to send a message
       case Types.WEBSOCKET_SEND:
-        websocket.send(action.payload);
+        if (websocket) {
+          websocket.send(JSON.stringify(action.payload));
+        } else {
+          console.warn('WebSocket is closed, ignoring. Trigger a WEBSOCKET_CONNECT first.');
+        }
         break;
-      // This action is not relevant to
+
       default:
         next(action);
     }
   };
 };
-
-// const example = store => next => action => {
-//   console.log('redux-websocket', action.type);
-//   return next(action);
-// };
 
 export const types = Types;
 

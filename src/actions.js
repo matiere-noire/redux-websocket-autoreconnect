@@ -1,24 +1,42 @@
 /* eslint-env browser */
-
+// @flow
 import Types from './types';
 
 // These actions are more concerned with connection state
 // and are trigged async by the WebSocketMiddleware
 
-export const connecting = () => ({
+export const connecting = (event: Event, websocket: ?WebSocket): Action => ({
   type: Types.WEBSOCKET_CONNECTING,
-  timestamp: new Date()
+  payload: {
+    timestamp: new Date(),
+    event,
+    websocket
+  }
 });
 
-export const connected = () => ({
-  type: Types.WEBSOCKET_CONNECTED,
-  timestamp: new Date()
+export const open = (event: Event): Action => ({
+  type: Types.WEBSOCKET_OPEN,
+  payload: {
+    timestamp: new Date(),
+    event
+  }
 });
 
-export const disconnected = () => ({
-  type: Types.WEBSOCKET_DISCONNECTED,
-  timestamp: new Date()
+export const closed = (event: Event): Action => ({
+  type: Types.WEBSOCKET_CLOSED,
+  payload: {
+    timestamp: new Date(),
+    event
+  }
 });
 
+export const message = (event: MessageEvent): Action => ({
+  type: Types.WEBSOCKET_MESSAGE,
+  payload: {
+    timestamp: new Date(),
+    data: event.data,
+    event
+  }
+});
 
 export default {};
