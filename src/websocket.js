@@ -1,6 +1,5 @@
 /* eslint-env browser */
 /* @flow */
-import _ from 'lodash';
 
 /**
  * Formats args for creating the WebSocket instance
@@ -22,7 +21,7 @@ const makeConfig = (payload: Config): Config => {
   const defaults: Config = {
     constructor: WebSocket
   };
-  return Object.assign({}, defaults, payload);
+  return { ...defaults, ...payload };
 };
 
 
