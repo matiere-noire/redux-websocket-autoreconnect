@@ -69,6 +69,6 @@ const createMiddleware = () => {
   };
 };
 
-export const types = Types;
+export const ActionTypes = Types;
 
 export default createMiddleware();
