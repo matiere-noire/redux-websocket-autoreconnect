@@ -1,8 +1,21 @@
 /* eslint-env browser */
 /* @flow */
-import Types from './types';
 import { connecting, open, closed, message } from './actions';
 import { createWebsocket } from './websocket';
+
+export const ActionTypes = {
+  // Action types to be dispatched by the user
+  WEBSOCKET_CONNECT: 'WEBSOCKET_CONNECT',
+  WEBSOCKET_DISCONNECT: 'WEBSOCKET_DISCONNECT',
+  WEBSOCKET_SEND: 'WEBSOCKET_SEND',
+
+  // Action types dispatched by the WebSocket implementation
+  WEBSOCKET_CONNECTING: 'WEBSOCKET_CONNECTING',
+  WEBSOCKET_OPEN: 'WEBSOCKET_OPEN',
+  WEBSOCKET_DISCONNECTING: 'WEBSOCKET_DISCONNECTING',
+  WEBSOCKET_CLOSED: 'WEBSOCKET_CLOSED',
+  WEBSOCKET_MESSAGE: 'WEBSOCKET_MESSAGE'
+};
 
 const createMiddleware = () => {
   // Hold a reference to the WebSocket instance in use.
@@ -44,18 +57,18 @@ const createMiddleware = () => {
   return (store: Object) => (next: Function) => (action: Action) => {
     switch (action.type) {
       // User request to connect
-      case Types.WEBSOCKET_CONNECT:
+      case ActionTypes.WEBSOCKET_CONNECT:
         close();
         initialize(store, action.payload);
         break;
 
       // User request to disconnect
-      case Types.WEBSOCKET_DISCONNECT:
+      case ActionTypes.WEBSOCKET_DISCONNECT:
         close();
         break;
 
       // User request to send a message
-      case Types.WEBSOCKET_SEND:
+      case ActionTypes.WEBSOCKET_SEND:
         if (websocket) {
           websocket.send(JSON.stringify(action.payload));
         } else {
@@ -68,7 +81,5 @@ const createMiddleware = () => {
     }
   };
 };
-
-export const ActionTypes = Types;
 
 export default createMiddleware();
