@@ -3,19 +3,18 @@
 import { connecting, open, closed, message } from './actions';
 import { createWebsocket } from './websocket';
 
-export const ActionTypes = {
-  // Action types to be dispatched by the user
-  WEBSOCKET_CONNECT: 'WEBSOCKET_CONNECT',
-  WEBSOCKET_DISCONNECT: 'WEBSOCKET_DISCONNECT',
-  WEBSOCKET_SEND: 'WEBSOCKET_SEND',
 
-  // Action types dispatched by the WebSocket implementation
-  WEBSOCKET_CONNECTING: 'WEBSOCKET_CONNECTING',
-  WEBSOCKET_OPEN: 'WEBSOCKET_OPEN',
-  WEBSOCKET_DISCONNECTING: 'WEBSOCKET_DISCONNECTING',
-  WEBSOCKET_CLOSED: 'WEBSOCKET_CLOSED',
-  WEBSOCKET_MESSAGE: 'WEBSOCKET_MESSAGE'
-};
+// Action types to be dispatched by the user
+export const WEBSOCKET_CONNECT = 'WEBSOCKET:CONNECT';
+export const WEBSOCKET_DISCONNECT = 'WEBSOCKET:DISCONNECT';
+export const WEBSOCKET_SEND = 'WEBSOCKET:SEND';
+// Action types dispatched by the WebSocket implementation
+export const WEBSOCKET_CONNECTING = 'WEBSOCKET:CONNECTING';
+export const WEBSOCKET_OPEN = 'WEBSOCKET:OPEN';
+export const WEBSOCKET_DISCONNECTING = 'WEBSOCKET:DISCONNECTING';
+export const WEBSOCKET_CLOSED = 'WEBSOCKET:CLOSED';
+export const WEBSOCKET_MESSAGE = 'WEBSOCKET:MESSAGE';
+
 
 const createMiddleware = () => {
   // Hold a reference to the WebSocket instance in use.
@@ -57,18 +56,18 @@ const createMiddleware = () => {
   return (store: Object) => (next: Function) => (action: Action) => {
     switch (action.type) {
       // User request to connect
-      case ActionTypes.WEBSOCKET_CONNECT:
+      case WEBSOCKET_CONNECT:
         close();
         initialize(store, action.payload);
         break;
 
       // User request to disconnect
-      case ActionTypes.WEBSOCKET_DISCONNECT:
+      case WEBSOCKET_DISCONNECT:
         close();
         break;
 
       // User request to send a message
-      case ActionTypes.WEBSOCKET_SEND:
+      case WEBSOCKET_SEND:
         if (websocket) {
           websocket.send(JSON.stringify(action.payload));
         } else {
