@@ -1,15 +1,14 @@
 /* eslint-env browser */
-/* @flow */
 
 /**
  * Formats args for creating the WebSocket instance
  */
-const formatArgs = (config: Config): Array<any> => {
+const extractArgs = (config) => {
   let args = [];
-  if (config.url) {
-    args = [config.url];
-  } else if (config.args) {
+  if (config.args) {
     args = config.args;
+  } else if (config.url) {
+    args = [config.url];
   }
   return args;
 };
@@ -17,17 +16,17 @@ const formatArgs = (config: Config): Array<any> => {
 /**
  * Create a Config object
  */
-const makeConfig = (payload: Config): Config => {
-  const defaults: Config = {
-    constructor: WebSocket
-  };
-  return { ...defaults, ...payload };
-};
+// const makeConfig = (payload: Config): Config => {
+//   const defaults: Config = {
+//     constructor: WebSocket
+//   };
+//   return { ...defaults, ...payload };
+// };
 
 
-export const createWebsocket = (payload: Config) => {
-  const config = makeConfig(payload);
-  const args = formatArgs(config);
+export const createWebsocket = (payload) => {
+  const args = extractArgs(payload);
+  const constructor = (payload.constructor) ? payload.constructor : WebSocket;
 
-  return new config.constructor(...args);
+  return new constructor(...args);
 };
