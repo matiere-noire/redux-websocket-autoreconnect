@@ -1,6 +1,6 @@
 /* eslint-env browser */
 // @flow
-import Types from './types';
+import * as Types from './types';
 
 // These actions are more concerned with connection state
 // and are trigged async by the WebSocketMiddleware
