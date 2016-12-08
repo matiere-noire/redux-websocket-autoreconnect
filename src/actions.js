@@ -1,12 +1,12 @@
 /* eslint-env browser */
 // @flow
-import * as Types from './types';
+import { WEBSOCKET_CONNECTING, WEBSOCKET_OPEN, WEBSOCKET_CLOSED, WEBSOCKET_MESSAGE } from './index';
 
 // These actions are more concerned with connection state
 // and are trigged async by the WebSocketMiddleware
 
 export const connecting = (event: Event, websocket: ?WebSocket): Action => ({
-  type: Types.WEBSOCKET_CONNECTING,
+  type: WEBSOCKET_CONNECTING,
   payload: {
     timestamp: new Date(),
     event,
@@ -15,7 +15,7 @@ export const connecting = (event: Event, websocket: ?WebSocket): Action => ({
 });
 
 export const open = (event: Event): Action => ({
-  type: Types.WEBSOCKET_OPEN,
+  type: WEBSOCKET_OPEN,
   payload: {
     timestamp: new Date(),
     event
@@ -23,7 +23,7 @@ export const open = (event: Event): Action => ({
 });
 
 export const closed = (event: Event): Action => ({
-  type: Types.WEBSOCKET_CLOSED,
+  type: WEBSOCKET_CLOSED,
   payload: {
     timestamp: new Date(),
     event
@@ -31,7 +31,7 @@ export const closed = (event: Event): Action => ({
 });
 
 export const message = (event: MessageEvent): Action => ({
-  type: Types.WEBSOCKET_MESSAGE,
+  type: WEBSOCKET_MESSAGE,
   payload: {
     timestamp: new Date(),
     data: event.data,
