@@ -57,6 +57,7 @@ const createMiddleware = () => {
       case WEBSOCKET_CONNECT:
         close();
         initialize(store, action.payload);
+        next(action);
         break;
 
       // User request to disconnect
