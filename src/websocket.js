@@ -4,13 +4,15 @@
  * Formats args for creating the WebSocket instance
  */
 const extractArgs = (config) => {
-  let args = [];
   if (config.args) {
-    args = config.args;
-  } else if (config.url) {
-    args = [config.url];
+    return config.args;
   }
-  return args;
+
+  if (config.url) {
+    return [config.url];
+  }
+
+  return [];
 };
 
 /**

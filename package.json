@@ -1,6 +1,6 @@
 {
   "name": "@giantmachines/redux-websocket",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "A redux middleware to handle websocket connections",
   "main": "dist/index.js",
   "directories": {
@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "mocha --compilers js:babel-core/register",
-    "build": "rm -rf dist/ && ./node_modules/.bin/babel -d dist/ src/",
+    "build": "rimraf dist/ && babel -d dist/ src/",
     "flow": "flow; test $? -eq 0 -o $? -eq 2"
   },
   "repository": {
