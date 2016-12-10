@@ -38,7 +38,7 @@ const createMiddleware = () => {
 
     // An optimistic callback assignment for WebSocket objects that support this
     // Function invocation: dispatch(connecting(event, websocket));
-    websocket.onconnecting = partialRight(compose(dispatch, connecting), [websocket]);
+    websocket.onconnecting = partialRight(dispatchAction(connecting), [websocket]);
   };
 
   /**
