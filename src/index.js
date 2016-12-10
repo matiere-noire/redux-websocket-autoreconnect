@@ -27,11 +27,14 @@ const createMiddleware = () => {
     // Instantiate the websocket.
     websocket = createWebsocket(config);
 
+    // Function will dispatch actions returned from action creators.
+    const dispatchAction = compose.bind(null, dispatch);
+
     // Setup handlers to be called like this:
     // dispatch(open(event));
-    websocket.onopen = compose(dispatch, open)
-    websocket.onclose = compose(dispatch, closed);
-    websocket.onmessage = compose(dispatch, message);
+    websocket.onopen = dispatchAction(open)
+    websocket.onclose = dispatchAction(closed);
+    websocket.onmessage = dispatchAction(message);
 
     // An optimistic callback assignment for WebSocket objects that support this
     // Function invocation: dispatch(connecting(event, websocket));
