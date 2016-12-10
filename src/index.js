@@ -38,8 +38,9 @@ const createMiddleware = () => {
     websocket.onmessage = dispatchAction(message);
 
     // An optimistic callback assignment for WebSocket objects that support this
-    // Function invocation: dispatch(connecting(event, websocket));
-    websocket.onconnecting = partialRight(dispatchAction(connecting), [websocket]);
+    const onConnecting = dispatchAction(connecting);
+    // Add the websocket as the 2nd argument (after the event).
+    websocket.onconnecting = partialRight(onConnecting, [websocket]);
   };
 
   /**
