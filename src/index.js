@@ -1,6 +1,7 @@
 /* eslint-env browser */
 /* @flow */
 import { compose } from 'redux';
+import partial from 'lodash/fp/partial';
 import partialRight from 'lodash/fp/partialRight';
 import { connecting, open, closed, message } from './actions';
 import { createWebsocket } from './websocket';
@@ -28,7 +29,7 @@ const createMiddleware = () => {
     websocket = createWebsocket(config);
 
     // Function will dispatch actions returned from action creators.
-    const dispatchAction = compose.bind(null, dispatch);
+    const dispatchAction = partial(compose, [dispatch]);
 
     // Setup handlers to be called like this:
     // dispatch(open(event));
