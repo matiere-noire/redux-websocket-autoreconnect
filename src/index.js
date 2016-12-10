@@ -1,6 +1,7 @@
 /* eslint-env browser */
 /* @flow */
 import { compose } from 'redux';
+import partialRight from 'lodash/fp/partialRight';
 import { connecting, open, closed, message } from './actions';
 import { createWebsocket } from './websocket';
 
@@ -23,13 +24,16 @@ const createMiddleware = () => {
    * A function to create the WebSocket object and attach the standard callbacks
    */
   const initialize = ({ dispatch }, config: Config) => {
+    // Instantiate the websocket.
     websocket = createWebsocket(config);
 
     websocket.onopen = compose(dispatch, open)
     websocket.onclose = compose(dispatch, closed);
     websocket.onmessage = compose(dispatch, message);
+
     // An optimistic callback assignment for WebSocket objects that support this
-    websocket.onconnecting = compose(dispatch, connecting);
+    // Function invocation: dispatch(connecting(event, websocket));
+    websocket.onconnecting = partialRight(compose(dispatch, connecting), [websocket]);
   };
 
   /**
