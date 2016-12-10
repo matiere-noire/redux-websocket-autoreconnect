@@ -27,6 +27,8 @@ const createMiddleware = () => {
     // Instantiate the websocket.
     websocket = createWebsocket(config);
 
+    // Setup handlers to be called like this:
+    // dispatch(open(event));
     websocket.onopen = compose(dispatch, open)
     websocket.onclose = compose(dispatch, closed);
     websocket.onmessage = compose(dispatch, message);
