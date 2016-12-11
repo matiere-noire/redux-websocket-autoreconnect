@@ -9,7 +9,7 @@ import {
 } from '../src/';
 
 describe('action creators', () => {
-  describe('open()', () => {
+  describe('connecting()', () => {
     it('should return an action with the type: WEBSOCKET_CONNECTING', () => {
       const event = {};
       const ws = {};
@@ -60,7 +60,7 @@ describe('action creators', () => {
     });
   });
   describe('closed()', () => {
-    it('should return an action with the type: WEBSOCKET_OPEN', () => {
+    it('should return an action with the type: WEBSOCKET_CLOSED', () => {
       const event = {};
       const result = closed(event);
 
@@ -79,8 +79,8 @@ describe('action creators', () => {
       expect(result.payload.event).to.equal(event);
     });
   });
-  describe('closed()', () => {
-    it('should return an action with the type: WEBSOCKET_OPEN', () => {
+  describe('message()', () => {
+    it('should return an action with the type: WEBSOCKET_MESSAGE', () => {
       const event = { data: {} };
       const result = message(event);
 
