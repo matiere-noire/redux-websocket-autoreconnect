@@ -6,7 +6,7 @@
  *
  * @param {object} payload - The payload containing constructor and arg data.
  *
- * @return {*[]} The array of arguments to be passed to a constructor function.
+ * @return {*[]} The array of arguments extracted from the object that was passed in.
  */
  export const extractArgs = ({ args = [], url = '' } = {}) => {
    const argsArr = [].concat(args);
