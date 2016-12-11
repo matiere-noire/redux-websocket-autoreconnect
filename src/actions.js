@@ -1,6 +1,11 @@
 /* eslint-env browser */
 // @flow
-import { WEBSOCKET_CONNECTING, WEBSOCKET_OPEN, WEBSOCKET_CLOSED, WEBSOCKET_MESSAGE } from './index';
+import {
+  WEBSOCKET_CONNECTING,
+  WEBSOCKET_OPEN,
+  WEBSOCKET_CLOSED,
+  WEBSOCKET_MESSAGE
+} from './index';
 
 // These actions are more concerned with connection state
 // and are trigged async by the WebSocketMiddleware
