@@ -2,11 +2,12 @@
 import expect from 'expect';
 import configureMockStore from 'redux-mock-store';
 import td from 'testdouble';
-import { WebSocket, Server } from 'mock-socket';
+import { Server } from 'mock-socket';
 
-import middleware, { WEBSOCKET_CONNECT } from '../src/';
+import createWebSocketMiddleware, { WEBSOCKET_CONNECT } from '../src/';
 import { open } from '../src/actions';
 
+const middleware = createWebSocketMiddleware();
 const mockStore = configureMockStore([middleware]);
 
 describe('middleware', () => {
@@ -36,7 +37,7 @@ describe('middleware', () => {
         // console.log(actions);
         expect(actions[0].type).toEqual(open().type);
         mockServer.stop(done);
-      }, 100);
+      }, 50);
     });
   });
 });
