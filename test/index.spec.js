@@ -4,10 +4,9 @@ import configureMockStore from 'redux-mock-store';
 import td from 'testdouble';
 import { Server } from 'mock-socket';
 
-import createWebSocketMiddleware, { WEBSOCKET_CONNECT } from '../src/';
+import middleware, { WEBSOCKET_CONNECT } from '../src/';
 import { open } from '../src/actions';
 
-const middleware = createWebSocketMiddleware();
 const mockStore = configureMockStore([middleware]);
 
 describe('middleware', () => {

@@ -17,7 +17,7 @@ export const WEBSOCKET_DISCONNECTING = 'WEBSOCKET:DISCONNECTING';
 export const WEBSOCKET_CLOSED = 'WEBSOCKET:CLOSED';
 export const WEBSOCKET_MESSAGE = 'WEBSOCKET:MESSAGE';
 
-const createWebSocketMiddleware = () => {
+export const createWebSocketMiddleware = () => {
   // Hold a reference to the WebSocket instance in use.
   let websocket: ?WebSocket;
 
@@ -89,7 +89,4 @@ const createWebSocketMiddleware = () => {
   };
 };
 
-// During testing it became clear that this should return the creator to support
-// multiple instances, otherwise variables like "websocket" are effectively
-// globals
-export default createWebSocketMiddleware;
+export default createWebSocketMiddleware();
