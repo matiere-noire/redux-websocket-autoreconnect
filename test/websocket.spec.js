@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 import td from 'testdouble';
-import { expect, assert } from 'chai';
+import { expect } from 'chai';
 import createWebsocket, { extractArgs } from '../src/createWebsocket';
 
 describe('extractArgs()', () => {
