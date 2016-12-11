@@ -4,7 +4,9 @@
  * Converts an object containing argument information, used to instantiate
  * a websocket, into an array of args, according to priority.
  *
- * @param {object} payload - The payload containing constructor and arg data.
+ * @param {object} obj - The payload containing constructor and arg data.
+ * @param {*|*[]} obj.args - A single argument value or an array of arguments.
+ * @param {string} obj.url - The url for the websocket connection.
  *
  * @return {*[]} The array of arguments extracted from the object that was passed in.
  */
