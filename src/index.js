@@ -26,7 +26,6 @@ const createMiddleware = () => {
    */
   const initialize = ({ dispatch }, config: Config) => {
     // Instantiate the websocket.
-    //
     const cnfg = { constructor: WebSocket, ...config };
     websocket = createWebsocket(cnfg, extractArgs);
 
