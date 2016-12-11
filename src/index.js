@@ -49,7 +49,7 @@ const createMiddleware = () => {
    */
   const close = () => {
     if (websocket) {
-      console.warn(`Closing WebSocket connection to ${websocket.url} ...`);
+      // console.warn(`Closing WebSocket connection to ${websocket.url} ...`);
       websocket.close();
       websocket = null;
     }
@@ -70,6 +70,7 @@ const createMiddleware = () => {
 
       // User request to disconnect
       case WEBSOCKET_DISCONNECT:
+        console.log('WEBSOCKET_DISCONNECT received');
         close();
         break;
 

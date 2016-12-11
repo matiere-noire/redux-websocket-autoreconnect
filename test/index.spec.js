@@ -2,7 +2,10 @@
 import expect from 'expect';
 import configureMockStore from 'redux-mock-store';
 import td from 'testdouble';
+import { WebSocket, Server } from 'mock-socket';
+
 import middleware, { WEBSOCKET_CONNECT } from '../src/';
+import { open } from '../src/actions';
 
 const mockStore = configureMockStore([middleware]);
 
@@ -17,19 +20,23 @@ describe('middleware', () => {
   });
 
   describe('WEBSOCKET_CONNECT', () => {
-    const action = { type: WEBSOCKET_CONNECT };
+    const url = 'ws://localhost:8080';
+    const store = mockStore({});
     const next = td.func('next');
-    class WebSocketStub {}
-    global.WebSocket = WebSocketStub;
+    const action = { type: WEBSOCKET_CONNECT, payload: { url } };
 
-    it('call next action', () => {
-      middleware(mockStore)(next)(action);
-      td.verify(next(action));
-    });
+    it('dispatches a WEBSOCKET_OPEN action', (done) => {
+      const mockServer = new Server(url);
+      // Calling the middleware with a WEBSOCKET_CONNECT instantly connects to
+      // a WebSocket serve
+      middleware(store)(next)(action);
 
-    it('', () => {
-      middleware(mockStore)(next)(action);
-      expect(middleware.websocket);
+      setTimeout(() => {
+        const actions = store.getActions();
+        // console.log(actions);
+        expect(actions[0].type).toEqual(open().type);
+        mockServer.stop(done);
+      }, 100);
     });
   });
 });
