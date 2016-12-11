@@ -5,7 +5,7 @@ import {
   WEBSOCKET_OPEN,
   WEBSOCKET_CLOSED,
   WEBSOCKET_MESSAGE
-} from './index';
+} from './';
 
 // These actions are more concerned with connection state
 // and are trigged async by the WebSocketMiddleware
