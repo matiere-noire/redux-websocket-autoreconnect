@@ -17,7 +17,7 @@ export const WEBSOCKET_DISCONNECTING = 'WEBSOCKET:DISCONNECTING';
 export const WEBSOCKET_CLOSED = 'WEBSOCKET:CLOSED';
 export const WEBSOCKET_MESSAGE = 'WEBSOCKET:MESSAGE';
 
-const createMiddleware = () => {
+export const createWebSocketMiddleware = () => {
   // Hold a reference to the WebSocket instance in use.
   let websocket: ?WebSocket;
 
@@ -49,7 +49,7 @@ const createMiddleware = () => {
    */
   const close = () => {
     if (websocket) {
-      console.warn(`Closing WebSocket connection to ${websocket.url} ...`);
+      // console.warn(`Closing WebSocket connection to ${websocket.url} ...`);
       websocket.close();
       websocket = null;
     }
@@ -70,6 +70,7 @@ const createMiddleware = () => {
 
       // User request to disconnect
       case WEBSOCKET_DISCONNECT:
+        console.log('WEBSOCKET_DISCONNECT received');
         close();
         break;
 
@@ -88,4 +89,4 @@ const createMiddleware = () => {
   };
 };
 
-export default createMiddleware();
+export default createWebSocketMiddleware();
