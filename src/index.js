@@ -4,7 +4,7 @@ import { compose } from 'redux';
 import partial from 'lodash/fp/partial';
 import partialRight from 'lodash/fp/partialRight';
 import { connecting, open, closed, message } from './actions';
-import { createWebsocket } from './websocket';
+import createWebsocket, { extractArgs } from './createWebsocket';
 
 // Action types to be dispatched by the user
 export const WEBSOCKET_CONNECT = 'WEBSOCKET:CONNECT';
@@ -26,7 +26,8 @@ const createMiddleware = () => {
    */
   const initialize = ({ dispatch }, config: Config) => {
     // Instantiate the websocket.
-    websocket = createWebsocket(config);
+    const cnfg = { constructor: WebSocket, ...config };
+    websocket = createWebsocket(cnfg, extractArgs);
 
     // Function will dispatch actions returned from action creators.
     const dispatchAction = partial(compose, [dispatch]);
