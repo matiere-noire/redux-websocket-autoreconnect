@@ -43,6 +43,7 @@
     "testdouble": "^1.9.0"
   },
   "dependencies": {
-    "babel-plugin-transform-object-rest-spread": "^6.19.0"
+    "babel-plugin-transform-object-rest-spread": "^6.19.0",
+    "lodash": "^4.17.2"
   }
 }
