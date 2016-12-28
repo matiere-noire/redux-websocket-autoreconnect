@@ -1,4 +1,5 @@
 /* eslint-env browser */
+/* @flow */
 
 /**
  * Formats args for creating the WebSocket instance
@@ -15,20 +16,13 @@ const extractArgs = (config) => {
   return [];
 };
 
+
 /**
- * Create a Config object
+ * Create a websocket object from the incoming config
  */
-// const makeConfig = (payload: Config): Config => {
-//   const defaults: Config = {
-//     constructor: WebSocket
-//   };
-//   return { ...defaults, ...payload };
-// };
-
-
-export const createWebsocket = (payload) => {
+export const createWebsocket = (payload: Config) => {
   const args = extractArgs(payload);
-  const constructor = (payload.constructor) ? payload.constructor : WebSocket;
+  const websocket = (payload.websocket) ? payload.websocket : WebSocket;
 
-  return new constructor(...args);
+  return new websocket(...args);
 };

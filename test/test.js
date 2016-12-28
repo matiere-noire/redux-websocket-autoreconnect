@@ -1,17 +1,20 @@
 /* eslint-env mocha */
-// import deepFreeze from 'deep-freeze';
+
 import td from 'testdouble';
-import chai from 'chai';
-
-const { expect, assert } = chai;
-
-// Export an object with spec helper functions or libraries.
-// export { describe, it, beforeEach, afterEach, deepFreeze, td, expect, assert };
-
-// import { describe, it, td } from '../../spec_helper';
+import expect from 'expect';
 import middleware from '../src/';
+import { createWebsocket } from '../src/websocket';
+
+// This does not exist in the Node env, but does in the browser
+import WebSocket from 'ws';
+global.WebSocket = WebSocket;
+
+class Socket {
+
+}
 
 describe('middleware', () => {
+
   it('should be a curried function that calls next(action)', () => {
     const action = {};
     const next = td.func('next');
@@ -20,4 +23,20 @@ describe('middleware', () => {
 
     td.verify(next(action));
   });
+
+  context('createWebsocket', () => {
+     it('should accept a default payload', () => {
+       const payload = { url: 'ws://localhost' };
+
+       const ws = createWebsocket(payload);
+       expect(ws).toBeA(WebSocket);
+     });
+
+     it('accepts an alternative WebSocket', () => {
+       const ws = createWebsocket({ websocket: Socket });
+       expect(ws).toBeA(Socket);
+     });
+  });
+
+
 });
