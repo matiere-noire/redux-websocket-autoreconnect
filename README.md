@@ -59,12 +59,14 @@ store.dispatch({
 
 ## Actions: User Dispatched
 
+The following actions are to be dispatched by the user. They will be handled by the middleware. All examples are essentially Flow types to show expectations. The constants can (and should) be imported from the library module (see above)
+
 ### WEBSOCKET_CONNECT
 
 Open a connection to a WebSocket server.
 
 ```javascript
-type Connect = {
+{
   type: WEBSOCKET_CONNECT,
   payload: {
     url: string // something like 'wss://'
@@ -95,7 +97,22 @@ Send a message over an open WebSocket connection. The payload can be an arbitrar
 
 ## Actions: User Handled
 
-User handled actions correspond to the callbacks on a WebSocket object.
+User handled actions correspond to the callbacks on a WebSocket object. These actions are to be handled in app-space at the reducers or in another piece of middleware to handle message parsing and routing.
+
+### WEBSOCKET_MESSAGE
+
+Dispatched from redux-websocket when the WebSocket `onmessage` callback is executed. This action represents discrete messages sent from the server to the client. Its inverse is `WEBSOCKET_SEND`. The data is a `string` and it is the client's responsibility to deserialize as necessary. That is, this lib makes no assumptions about the format of the data.
+
+```javascript
+{
+  type: WEBSOCKET_CLOSED,
+  payload: {
+    timestamp: Date,
+    event: Event,
+    data: string
+  }
+}
+```
 
 ### WEBSOCKET_OPEN
 
@@ -125,17 +142,4 @@ Dispatched from redux-websocket when the WebSocket `onclosed` callback is execut
 }
 ```
 
-### WEBSOCKET_MESSAGE
 
-Dispatched from redux-websocket when the WebSocket `onmessage` callback is executed. This action represents discrete messages sent from the server to the client. Its inverse is `WEBSOCKET_SEND`. The data is a `string` and it is the client's responsibility to deserialize as necessary. That is, this lib makes no assumptions about the format of the data.
-
-```javascript
-{
-  type: WEBSOCKET_CLOSED,
-  payload: {
-    timestamp: Date,
-    event: Event,
-    data: string
-  }
-}
-```
