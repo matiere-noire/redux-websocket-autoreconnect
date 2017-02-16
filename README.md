@@ -64,7 +64,7 @@ store.dispatch({
 Open a connection to a WebSocket server.
 
 ```javascript
-{
+type Connect = {
   type: WEBSOCKET_CONNECT,
   payload: {
     url: string // something like 'wss://'
