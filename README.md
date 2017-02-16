@@ -67,7 +67,7 @@ Open a connection to a WebSocket server.
 {
   type: WEBSOCKET_CONNECT,
   payload: {
-    url: 'wss://'
+    url: string // something like 'wss://'
   }
 }
 ```
@@ -89,7 +89,7 @@ Send a message over an open WebSocket connection. The payload can be an arbitrar
 ```javascript
 {
   type: WEBSOCKET_SEND,
-  payload: (an arbitrary javascript object)
+  payload: Object|number|string
 }
 ```
 
@@ -105,8 +105,8 @@ Dispatched from redux-websocket when the WebSocket `onopen` callback is executed
 {
   type: WEBSOCKET_OPEN,
   payload: {
-    timestamp: (Date),
-    event: (Event)
+    timestamp: Date,
+    event: Event
   }
 }
 ```
@@ -119,8 +119,8 @@ Dispatched from redux-websocket when the WebSocket `onclosed` callback is execut
 {
   type: WEBSOCKET_CLOSED,
   payload: {
-    timestamp: (Date),
-    event: (Event)
+    timestamp: Date,
+    event: Event
   }
 }
 ```
@@ -133,9 +133,9 @@ Dispatched from redux-websocket when the WebSocket `onmessage` callback is execu
 {
   type: WEBSOCKET_CLOSED,
   payload: {
-    timestamp: (Date),
-    event: (Event),
-    data: 'string data from the server'
+    timestamp: Date,
+    event: Event,
+    data: string
   }
 }
 ```
