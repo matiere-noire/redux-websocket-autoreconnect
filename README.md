@@ -156,4 +156,5 @@ If you like this library and would like to make modifications or additions, plea
 
 - [ ] Better test coverage
 - [ ] More refined Flow types
+- [ ] More complete usage examples
 
