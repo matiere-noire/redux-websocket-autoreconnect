@@ -57,15 +57,85 @@ store.dispatch({
 })
 ```
 
-## Actions
+## Actions: User Dispatched
 
 ### WEBSOCKET_CONNECT
+
+Open a connection to a WebSocket server.
 
 ```javascript
 {
   type: WEBSOCKET_CONNECT,
   payload: {
     url: 'wss://'
+  }
+}
+```
+
+### WEBSOCKET_DISCONNECT
+
+Disconnect from a WebSocket server (and cleanup).
+
+```javascript
+{
+  type: WEBSOCKET_DISCONNECT,
+}
+```
+
+### WEBSOCKET_SEND
+
+Send a message over an open WebSocket connection. The payload can be an arbitrary JavaScript object or type. The library `JSON.stringify()` the payload before sending it.
+
+```javascript
+{
+  type: WEBSOCKET_SEND,
+  payload: (an arbitrary javascript object)
+}
+```
+
+## Actions: User Handled
+
+User handled actions correspond to the callbacks on a WebSocket object.
+
+### WEBSOCKET_OPEN
+
+Dispatched from redux-websocket when the WebSocket `onopen` callback is executed. This typically signals a successful connection.
+
+```javascript
+{
+  type: WEBSOCKET_OPEN,
+  payload: {
+    timestamp: (Date),
+    event: (Event)
+  }
+}
+```
+
+### WEBSOCKET_CLOSED
+
+Dispatched from redux-websocket when the WebSocket `onclosed` callback is executed. This typically signals a disconnecton event. Codes can be found in the `event`.
+
+```javascript
+{
+  type: WEBSOCKET_CLOSED,
+  payload: {
+    timestamp: (Date),
+    event: (Event)
+  }
+}
+```
+
+### WEBSOCKET_MESSAGE
+
+Dispatched from redux-websocket when the WebSocket `onmessage` callback is executed. This action represents discrete messages sent from the server to the client. Its inverse is `WEBSOCKET_SEND`. The data is a `string` and it is the client's responsibility to deserialize as necessary. That is, this lib makes no assumptions about the format of the data.
+
+```javascript
+{
+  type: WEBSOCKET_CLOSED,
+  payload: {
+    timestamp: (Date),
+    event: (Event),
+    data: 'string data from the server'
   }
 }
 ```
