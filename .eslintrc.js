@@ -34,7 +34,6 @@ module.exports = {
   // See ESLint Rules: http://eslint.org/docs/rules/
   rules: {
     'no-console': 'off', // @todo Reinstate this after dev is nearly complete.
-    'linebreak-style': 'off',
     'import/prefer-default-export': 0,
     'import/no-named-as-default': 'off',
     'import/no-extraneous-dependencies': 'off',

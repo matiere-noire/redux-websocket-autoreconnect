@@ -1,34 +1,34 @@
 /* eslint-env browser */
+/* @flow */
+import _ from 'lodash';
 
 /**
  * Formats args for creating the WebSocket instance
  */
-const extractArgs = (config) => {
-  if (config.args) {
-    return config.args;
-  }
-
+const formatArgs = (config: Config): Array<any> => {
+  let args = [];
   if (config.url) {
-    return [config.url];
+    args = [config.url];
+  } else if (config.args) {
+    args = config.args;
   }
-
-  return [];
+  return args;
 };
 
 /**
  * Create a Config object
  */
-// const makeConfig = (payload: Config): Config => {
-//   const defaults: Config = {
-//     constructor: WebSocket
-//   };
-//   return { ...defaults, ...payload };
-// };
+const makeConfig = (payload: Config): Config => {
+  const defaults: Config = {
+    constructor: WebSocket
+  };
+  return Object.assign({}, defaults, payload);
+};
 
 
-export const createWebsocket = (payload) => {
-  const args = extractArgs(payload);
-  const constructor = (payload.constructor) ? payload.constructor : WebSocket;
+export const createWebsocket = (payload: Config) => {
+  const config = makeConfig(payload);
+  const args = formatArgs(config);
 
-  return new constructor(...args);
+  return new config.constructor(...args);
 };
