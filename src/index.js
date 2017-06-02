@@ -19,6 +19,7 @@ export const WEBSOCKET_MESSAGE = 'WEBSOCKET:MESSAGE';
 const createMiddleware = () => {
   // Hold a reference to the WebSocket instance in use.
   let websocket: ?WebSocket;
+  let websocketConfig: ?Config
 
   /**
    * A function to create the WebSocket object and attach the standard callbacks
@@ -26,6 +27,7 @@ const createMiddleware = () => {
   const initialize = ({ dispatch }, config: Config) => {
     // Instantiate the websocket.
     websocket = createWebsocket(config);
+    websocketConfig = config
 
     // Function will dispatch actions returned from action creators.
     const dispatchAction = partial(compose, [dispatch]);
@@ -52,6 +54,9 @@ const createMiddleware = () => {
       websocket = null;
     }
   };
+
+  let attempts = 1
+  const generateInterval = (k) => Math.min(30, (Math.pow(2, k) - 1)) * 1000
 
   /**
    * The primary Redux middleware function.
@@ -82,6 +87,22 @@ const createMiddleware = () => {
         next(action);
         break;
 
+      case WEBSOCKET_OPEN:
+        attempts = 1
+        next(action)
+        break
+
+      case WEBSOCKET_CLOSED:
+        const time = generateInterval(attempts);
+
+        setTimeout(() => {
+          // We've tried to reconnect so increment the attempts by 1
+          attempts++;
+          console.log(websocketConfig, websocketConfig.url)
+          initialize(store, websocketConfig)
+        }, time)
+        next(action)
+        break
       default:
         next(action);
     }
