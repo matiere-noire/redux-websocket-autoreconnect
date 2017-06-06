@@ -1,5 +1,5 @@
 {
-  "name": "matiere-noire/redux-websocket-autoreconnect",
+  "name": "redux-websocket-autoreconnect",
   "version": "1.0.0",
   "description": "A redux middleware to handle websocket connections with auto reconnection",
   "main": "dist/index.js",

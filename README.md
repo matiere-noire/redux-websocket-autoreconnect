@@ -37,8 +37,7 @@ const store = createStore(
 )
 ```
 
-Another example that add the library to Redux middleware inside an [Ignite](https://github.com/infinitered/ignite) Project (in App/redux/CreateSore.js) :
-
+Another example that add the library to Redux middleware inside an [Ignite](https://github.com/infinitered/ignite) Project (in App/redux/CreateStore.js) :
 
 ```javascript
 import { createStore, applyMiddleware, compose } from 'redux'
