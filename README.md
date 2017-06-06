@@ -11,6 +11,11 @@ This middleware uses actions, dispatched with Redux to interact with a WebSocket
 ## Installation
 
 ```bash
+$ yarn add matiere-noire/redux-websocket-autoreconnect
+```
+OR
+
+```bash
 $ npm install matiere-noire/redux-websocket-autoreconnect --save
 ```
 
