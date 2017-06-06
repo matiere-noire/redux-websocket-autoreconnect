@@ -1,6 +1,6 @@
 {
   "name": "redux-websocket-autoreconnect",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A redux middleware to handle websocket connections with auto reconnection",
   "main": "dist/index.js",
   "directories": {
