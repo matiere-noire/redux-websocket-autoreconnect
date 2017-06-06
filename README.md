@@ -1,19 +1,17 @@
-# redux-websocket
+# redux-websocket-autoreconnect
 
 ## Summary
 
-A Redux middleware for managing data over a WebSocket connection.
+This repo is based on [@giantmachines/redux-websocket](https://github.com/giantmachines/redux-websocket) work.
+
+This is a Redux middleware for managing data over a WebSocket connection.
 
 This middleware uses actions, dispatched with Redux to interact with a WebSocket server including connect, disconnect, message sending, and message receiving. All actions follow the [Flux Standard Action](https://github.com/acdlite/flux-standard-action) model. 
-
-## Is it any good?
-
-Yes. Yes it is.
 
 ## Installation
 
 ```bash
-$ npm install @giantmachines/redux-websocket --save
+$ npm install matiere-noire/redux-websocket-autoreconnect --save
 ```
 
 ## Middleware Installation
@@ -22,7 +20,7 @@ Once you have installed the library via npm, you can add it to your Redux middle
 
 ```javascript
 // ... other imports
-import websocket from '@giantmachines/redux-websocket'
+import websocket from 'matiere-noire/redux-websocket-autoreconnect'
 
 const app = combineReducers(reducers)
 const store = createStore(
@@ -55,7 +53,7 @@ WEBSOCKET_MESSAGE
 They can be imported from the standard package and used like so
 
 ```javascript
-import { WEBSOCKET_CONNECT } from '@giantmachines/redux-websocket'
+import { WEBSOCKET_CONNECT } from 'matiere-noire/redux-websocket-autoreconnect'
 
 store.dispatch({
   type: WEBSOCKET_CONNECT,

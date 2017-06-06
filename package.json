@@ -1,7 +1,7 @@
 {
-  "name": "@giantmachines/redux-websocket",
-  "version": "0.0.21",
-  "description": "A redux middleware to handle websocket connections",
+  "name": "matiere-noire/redux-websocket-autoreconnect",
+  "version": "1.0.0",
+  "description": "A redux middleware to handle websocket connections with auto reconnection",
   "main": "dist/index.js",
   "directories": {
     "test": "test"
@@ -13,17 +13,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/giantmachines/redux-websocket.git"
+    "url": "git+https://github.com/matiere-noire/redux-websocket-autoreconnect.git"
   },
   "keywords": [
-    "redux"
+    "redux", "react-native", "websokcet"
   ],
-  "author": "David Michael",
+  "author": "Baptiste Bouillot",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/giantmachines/redux-websocket/issues"
+    "url": "https://github.com/matiere-noire/redux-websocket-autoreconnect/issues"
   },
-  "homepage": "https://github.com/giantmachines/redux-websocket#readme",
+  "homepage": "https://github.com/matiere-noire/redux-websocket-autoreconnect",
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-core": "^6.18.2",
